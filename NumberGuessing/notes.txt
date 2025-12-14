@@ -1,0 +1,9 @@
+fix code to return values instead of using global inside functions
+
+
+missed guesses return turns - 1
+
+pass parameters to functions for that
+
+use return to break out of game loop functions
+
