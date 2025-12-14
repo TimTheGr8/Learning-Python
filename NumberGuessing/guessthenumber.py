@@ -61,5 +61,5 @@ def StartGame():
             print(f"You were not able to guess the number. The number was {numberToGuess}")
 
 while input("Would you like to play Guess The Number, 'y' or 'n': ") == "y":
-    print(" " * 100)
+    print(" \n" * 20)
     StartGame()
