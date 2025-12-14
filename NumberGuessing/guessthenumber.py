@@ -36,6 +36,7 @@ while difficultyNotChosen:
 numberToGuess = random.randint(1, 100)
 print(f"CHEATER: {numberToGuess}")
 while numberOfGuesses > 0 and not numberGuessed:
+     print(f"You have {numberOfGuesses} remiaing.")
      currGuess = input("What number do you think it is: ")
      CompareGuess(int(currGuess))
      #////////////////// Add the number of guesses left 
