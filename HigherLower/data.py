@@ -101,3 +101,6 @@ descriptions = {
     "Alia Bhatt": "Actress",
     "Rosé": "Musician",
 }
+
+def GetName():
+    return "Tim"
