@@ -33,7 +33,7 @@ people = {
     "Kylian Mbappé": 128,
     "Billie Eilish": 124,
     "UEFA Champions League": 121,
-    "Lisa": 106,
+    "Lisa Manobal": 106,
     "Gal Gadot": 106,
     "Vin Diesel": 104,
     "Narendra Modi": 99.2,
@@ -102,5 +102,8 @@ descriptions = {
     "Rosé": "Musician",
 }
 
-def GetName():
-    return "Tim"
+def GetFollowers(name):
+    return people[name]
+
+def GetDescription(name):
+    return descriptions[name]
