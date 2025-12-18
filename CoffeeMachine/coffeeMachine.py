@@ -1,5 +1,5 @@
 import machine
-
+import art
 
 def ProcessCoins(money):
     total = 0
@@ -13,13 +13,10 @@ def ProcessCoins(money):
         elif i == 3:
             change = 0.01
         total += (money[i] * change)
+    return total
 
-    print(f"Total: {total: .2f}")
-
-def CheckResources(drink):
-    pass
-
-def MakeDrink(drink, money):
+def CollectMoney(money):
+    money.clear()
     print("Enter the number of coins you will be using.")
     quarters = int(input("Number of quarters: "))
     money.append(quarters)
@@ -29,8 +26,29 @@ def MakeDrink(drink, money):
     money.append(nickles)
     pennies = int(input("Number if pennies: "))
     money.append(pennies)
-    ProcessCoins(money)
-    print(f"Here is your {drink}!")
+
+def CheckResources(drink):
+    ingredients = machine.MENU[drink]["ingredients"]
+
+    for i in ingredients:
+        if ingredients[i] <= machine.resources[i]:
+            continue
+        else:
+            print("There are not enough ingredients for that drink")
+            return False
+    return True
+
+def MakeDrink(drink):
+    ingredients = machine.MENU[drink]["ingredients"]
+    for i in ingredients:
+        machine.resources[i] -= ingredients[i]
+    machine.resources["money"] += machine.MENU[drink]["cost"]
+    print("\n")
+    print(art.coffee)
+    print(f"Enjoy your {drink}!")
+
+def GetPrice(drink):
+    return machine.MENU[drink]["cost"]
 
 def PrintReport():
     print(f"Machine Report:\nWater: {machine.resources["water"]}\nMilk: {machine.resources["milk"]}\nCoffee: {machine.resources["coffee"]}\nMoney: {machine.resources["money"]}")
@@ -43,7 +61,20 @@ def CheckInput(input, money):
         case "report":
             PrintReport()
         case "espresso" | "latte" | "cappuccino":
-            MakeDrink(input, money)
+            if CheckResources(input):
+                price = GetPrice(input)
+                print(f"Drink Price: {price: .2f}")
+                CollectMoney(money)
+                moneyCollected = ProcessCoins(money)
+                if moneyCollected >= price:
+                    if moneyCollected > price:
+                        change = moneyCollected - price
+                        print(f"Your change returned is {change: .2f}")
+                    MakeDrink(input)
+                else:
+                    print("You did not add enough money. You change has been returned")
+                    money.clear()
+                    return False
         case _:
             print("I am sorry, that request is not valid. Pleases try again.")
     return True
@@ -57,7 +88,6 @@ def StartMachine():
         userInput = ""
         while userInput not in inputs:
             userInput = input("Today we have espresso, latte, and cappuccino. What drink would you like?\n").lower()
-        # Move this so that it only gets called when the user inputs a proper drink
         
         machineOn = CheckInput(userInput, coins)
 
@@ -68,17 +98,6 @@ def StartMachine():
                 continue
             else:
                 machineOn = False
-
-# TODO 4: Check if resources are sufficient to make selected drink
-
-
-
-# TODO 5: Process coins - 
-
-
-
-# TODO 6: Check if the transaction is sucessful
-
 
 
 # TODO 7: Make coffee
