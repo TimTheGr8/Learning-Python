@@ -6,8 +6,9 @@ tim = t.Turtle()
 screen = Screen()
 
 screen.colormode(255)
-tim.shape("triangle")
+tim.shape("turtle")
 tim.shapesize(1,1)
+tim.speed(0)
 moveDirection = [0, 90, 180, 270]
 totalLines = random.randint(100, 300)
 
@@ -48,15 +49,19 @@ def choose_direction():
 #         tim.right(angle)
 
 # Draw a random walk
-tim.speed(0)
-tim.pensize(10)
-lines = 0
-while lines < totalLines:
-    choose_direction()
+# tim.pensize(10)
+# lines = 0
+# while lines < totalLines:
+#     choose_direction()
+#     rand_color()
+#     tim.forward(25)
+#     lines += 1
+
+# Draw spirograph circles with radius of 100
+angleSize = 5
+for _ in range(int(360 / angleSize)):
     rand_color()
-    tim.forward(25)
-    lines += 1
-
-
+    tim.circle(100)
+    tim.setheading(tim.heading() + angleSize)
 
 screen.exitonclick()
