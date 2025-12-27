@@ -16,14 +16,6 @@ for i in range(5):
     turtles[i].goto(xStart, yDim)
     yDim -= 50
 
-def check_for_winner():
-    for t in range(5):
-        if turtles[t].xcor() >= 230:
-            print(f"{turtles[t].fillcolor().title()} turtle is the winner!")
-            return False
-        else:
-            return True
-
 user__bet = screen.textinput(title="Place your bet", prompt="Which turtle do you think will win the race? Enter a color:").lower()
 
 racing = True
