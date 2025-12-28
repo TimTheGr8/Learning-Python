@@ -1,14 +1,21 @@
 from turtle import Turtle, Screen
+import time
+from snake import Snake
+
 # Screen setup
 screen = Screen()
 screen.setup(width=600, height=600)
 screen.bgcolor("black")
 screen.title("PySnake")
+screen.tracer(0)
+update_delay = 0.15
 
+snake = Snake()
 
+# Game logic    
+game_running = True
+while game_running:
+    snake.move()
+    screen.update()
+    time.sleep(update_delay)
 
-
-
-
-
-screen.exitonclick()
