@@ -1,6 +1,8 @@
-from turtle import Turtle, Screen
+from turtle import Screen
 import time
 from snake import Snake
+from food import Food
+from scoreboard import Scoreboard
 
 # Screen setup
 screen = Screen()
@@ -10,7 +12,9 @@ screen.title("PySnake")
 screen.tracer(0)
 update_delay = 0.15
 
+scoreboard = Scoreboard()
 snake = Snake()
+food = Food()
 
 screen.listen()
 screen.onkey(snake.up,"Up")
@@ -24,4 +28,10 @@ while game_running:
     snake.move()
     screen.update()
     time.sleep(update_delay)
+
+    #detect collision with food
+    if snake.head.distance(food) < 15:
+        food.refresh()
+        # snake.add_segment()
+        scoreboard.add_score()
 
