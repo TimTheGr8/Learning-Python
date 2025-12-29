@@ -21,8 +21,12 @@ class Ball(Turtle):
     def change_direction(self, direction):
         self.setheading(direction)
 
-    def bounce(self):
+    def bounce_y(self):
         self.y_move *= -1
 
-    def ricochet(self):
+    def bounce_x(self):
         self.x_move *= -1
+
+    def reset_position(self):
+        self.home()
+        self.bounce_x()
