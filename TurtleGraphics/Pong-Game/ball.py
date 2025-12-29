@@ -1,0 +1,28 @@
+from turtle import Turtle
+
+STARTING_HEADING = 35
+
+class Ball(Turtle):
+    def __init__(self):
+        super().__init__()
+        self.penup()
+        self.shape("circle")
+        self.color("White")
+        self.x_move = 10
+        self.y_move = 10
+        # self.setheading(55)
+
+    def move(self):
+        # self.forward(20)
+        new_x = self.xcor() + self.x_move
+        new_y = self.ycor() + self.y_move
+        self.goto(new_x, new_y)
+
+    def change_direction(self, direction):
+        self.setheading(direction)
+
+    def bounce(self):
+        self.y_move *= -1
+
+    def ricochet(self):
+        self.x_move *= -1
