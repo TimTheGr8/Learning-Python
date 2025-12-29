@@ -1,6 +1,7 @@
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Scoreboard
 import time
 
 screen = Screen()
@@ -14,16 +15,17 @@ root.iconbitmap("TurtleGraphics/Pong-Game/ping-pong.ico")
 r_paddle = Paddle("right")
 l_paddle = Paddle("left")
 ball = Ball()
+scoreboard = Scoreboard()
 
 screen.listen()
-screen.onkey(r_paddle.up, "Up")
-screen.onkey(r_paddle.down, "Down")
-screen.onkey(l_paddle.up, "w")
-screen.onkey(l_paddle.down, "s")
+screen.onkeypress(r_paddle.up, "Up")
+screen.onkeypress(r_paddle.down, "Down")
+screen.onkeypress(l_paddle.up, "w")
+screen.onkeypress(l_paddle.down, "s")
 
 game_on = True
 while game_on:
-    time.sleep(0.1)
+    time.sleep(ball.move_speed)
     screen.update()
     ball.move()
     # Detect collision with wall
@@ -37,8 +39,10 @@ while game_on:
     # Detect if ball went past left paddle
     if ball.xcor() < -390:
         ball.reset_position()
+        scoreboard.r_point()
     # Detect if ball went past right paddle
     if  ball.xcor() > 390:
         ball.reset_position()
+        scoreboard.l_point()
 
 screen.exitonclick()

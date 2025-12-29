@@ -1,6 +1,6 @@
 from turtle import Turtle
+import random
 
-STARTING_HEADING = 35
 
 class Ball(Turtle):
     def __init__(self):
@@ -10,10 +10,9 @@ class Ball(Turtle):
         self.color("White")
         self.x_move = 10
         self.y_move = 10
-        # self.setheading(55)
+        self.move_speed = 0.1
 
     def move(self):
-        # self.forward(20)
         new_x = self.xcor() + self.x_move
         new_y = self.ycor() + self.y_move
         self.goto(new_x, new_y)
@@ -26,7 +25,14 @@ class Ball(Turtle):
 
     def bounce_x(self):
         self.x_move *= -1
+        self.change_speed()
 
     def reset_position(self):
         self.home()
         self.bounce_x()
+        self.move_speed = 0.1
+
+    def change_speed(self):
+        new_speed = random.uniform(0.5, 0.9)
+        self.move_speed *= new_speed
+    
