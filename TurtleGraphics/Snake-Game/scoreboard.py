@@ -18,3 +18,6 @@ class Scoreboard(Turtle):
         self.score += 1
         self.write(f"Score: {self.score}", align= TEXT_ALIGNMENT, font= FONT)
 
+    def game_over(self):
+        self.teleport(0, 0)
+        self.write("Game Over", align= TEXT_ALIGNMENT, font= FONT)
