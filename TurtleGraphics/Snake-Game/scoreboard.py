@@ -10,7 +10,7 @@ class Scoreboard(Turtle):
         self.hideturtle()
         self.teleport(0, 280)
         self.color("white")
-        self.high_score = 0
+        self.high_score = self.get_high_score()
         self.update_scoreboard()
 
     def update_scoreboard(self):
@@ -28,5 +28,14 @@ class Scoreboard(Turtle):
     def reset(self):
         if self.score > self.high_score:
             self.high_score = self.score
+            self.set_high_score(self.high_score)
         self.score = 0
         self.update_scoreboard()
+
+    def get_high_score(self):
+        with open("TurtleGraphics/Snake-Game/highscore.txt", mode="r") as file:
+            return int(file.read())
+
+    def set_high_score(self, score):
+        with open("TurtleGraphics/Snake-Game/highscore.txt", mode="w") as file:
+            file.write(str(score))
