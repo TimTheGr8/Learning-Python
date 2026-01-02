@@ -2,7 +2,18 @@
 #for each name in invited_names.txt
 #Replace the [name] placeholder with the actual name.
 #Save the letters in the folder "ReadyToSend".
-    
-#Hint1: This method will help you: https://www.w3schools.com/python/ref_file_readlines.asp
-    #Hint2: This method will also help you: https://www.w3schools.com/python/ref_string_replace.asp
-        #Hint3: THis method will help you: https://www.w3schools.com/python/ref_string_strip.asp
+
+names = []
+with open("MailMergeChallenge/Input/Names/invited_names.txt", "r") as file:
+    for line in file:
+        names.append(line.strip())
+
+
+message_txt = ""
+with open("MailMergeChallenge/Input/Letters/starting_letter.txt", "r") as file:
+    message_txt = file.read()
+
+for name in names:
+    with open(f"MailMergeChallenge/Output/ReadyToSend/letter_for_{name}.docx", "w") as letter:
+        new_message = message_txt.replace("[name]", name)
+        letter.write(new_message)
