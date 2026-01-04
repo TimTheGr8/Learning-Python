@@ -21,6 +21,9 @@ while len(correct_states) < len(all_states):
     state_guess = screen.textinput(f"{len(correct_states)}/50 States Correct", "Name a state on the map").title()
 
     if state_guess == "Exit":
+        states_to_learn = [state for state in all_states if state not in correct_states]
+        df = pd.DataFrame(states_to_learn)
+        df.to_csv("US-States-Game/state_to_learn.csv")
         break
     elif state_guess in all_states and state_guess not in correct_states:
         curr_state = state_data[state_data.state == state_guess]
@@ -28,13 +31,3 @@ while len(correct_states) < len(all_states):
         name_turtle.write(curr_state.state.item())
         correct_states.append(state_guess)
     screen.tracer(1)
-
-# screen.mainloop()
-# states_to_learn.csv
-states_to_learn = []
-for state in all_states:
-    if state not in correct_states:
-        states_to_learn.append(state)
-
-df = pd.DataFrame(states_to_learn)
-df.to_csv("US-States-Game/state_to_learn.csv")
