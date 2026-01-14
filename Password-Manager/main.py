@@ -2,8 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
-
-# TODO: Fix this to search and overwrite the websites already in the file
+import json
 
 # ----- PASSWORD GEN VARIABLES ----- #
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -27,13 +26,24 @@ def confirm_save():
     if len(user) == 0 or len(pword) == 0 or len(user) == 0:
         messagebox.showerror(title="ERROR", message="Some fields were left blank. Please fill out all fields before continuing.")
     else:
-        continue_saving = messagebox.askokcancel(title=site, message=f"These are the details entered:\nEmail: {user}\nPassword: {pword}\nContinue saving?")
-        if continue_saving:
-            save_password(site, user, pword)
+        save_password(site, user, pword)
 
 def save_password(website, email, password): 
-    with open("Password-Manager/data.txt", "a") as file:
-        file.write(f"{website} | {email} | {password}\n")
+    new_data = {website:{
+                            "email": email,
+                            "password": password
+                        }
+                }
+    try:
+        with open("Password-Manager/data.json", "r") as file:
+            data = json.load(file)
+            data.update(new_data)
+    except (FileNotFoundError, json.decoder.JSONDecodeError):
+        data = new_data
+    finally:
+        with open("Password-Manager/data.json", "w") as file:
+            json.dump(data, file, indent=4)
+
     messagebox.showinfo(title="Success", message="Username and password have been saved!!!!")
     clear_fields()
 
