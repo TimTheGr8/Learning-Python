@@ -18,6 +18,21 @@ def generate_password():
     password ="".join(password_list)
     password_enrty.insert(0, password)
     pyperclip.copy(password)
+# ---------------------------- SEARCH FOR PASSWORD ------------------------------- #
+def find_password():
+    new_site = website_entry.get()
+    try:
+        with open("Password-Manager/data.json", "r") as file:
+            data = json.load(file)
+            site = data[new_site]
+    except FileNotFoundError:
+        messagebox.showerror(title="ERROR", message="No data file found")
+    except KeyError:
+        messagebox.showerror(title="ERROR", message=f"No details for {new_site} exists")
+    else:
+        messagebox.showinfo(title=new_site, message=f"Username: {site["email"]}\nPassword: {site["password"]}")
+        pyperclip.copy(site["password"])
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def confirm_save():
     site = website_entry.get()
@@ -72,11 +87,13 @@ password_enrty = Entry(width=21)
 #Buttons
 generate_button = Button(text="Generate Password", command=generate_password)
 add_button = Button(text="Add", command=confirm_save, width=36)
+search_button = Button(text="Search", command=find_password)
 # ----- POSITIONS ----- #
 canvas.grid(row=0, column=1)
 website_label.grid(row=1, column=0)
-website_entry.grid(row=1, column=1, columnspan=2, sticky="EW")
+website_entry.grid(row=1, column=1,)
 website_entry.focus()
+search_button.grid(row=1, column=2, sticky="EW")
 username_label.grid(row=2, column=0)
 username_entry.grid(row=2, column=1, columnspan=2, sticky="EW")
 username_entry.insert(0,"tjanssen4@gmail.com")
