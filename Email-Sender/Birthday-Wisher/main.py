@@ -7,12 +7,30 @@ import random
 MY_EMAIL = "tjanssen4@gmail.com"
 MY_PASSWORD = "uyvz rzlt qbbv pdjo"
 
-# ---------------------------- FUNCTION NAME ------------------------------- #
+# ---------------------------- CHOOSE RANDOM LETTER ------------------------------- #
+def choose_letter():
+    letter_number = random.randint(1, 10)
+    
+# ---------------------------- CHOOSE RANDOM LETTER ------------------------------- #
 
-# ----- WINDOW ----- #
-# 1. Update the birthdays.csv
+# ---------------------------- CHOOSE RANDOM LETTER ------------------------------- #
 
-# 2. Check if today matches a birthday in the birthdays.csv
+# ---------------------------- CHOOSE RANDOM LETTER ------------------------------- #
+
+
+# -----  ----- #
+now = dt.datetime.now()
+# day = now.day
+# month = now.month
+data = pd.read_csv("Email-Sender/Birthday-Wisher/birthdays.csv")
+birthday_list = data.to_dict(orient="records")
+print(birthday_list)
+for index in range(len(birthday_list)):
+    person = birthday_list[index]
+    day = person["day"]
+    month = person["month"]
+    if day == now.day:
+        print(person["name"])
 
 # 3. If step 2 is true, pick a random letter from letter templates and replace the [NAME] with the person's actual name from birthdays.csv
 
@@ -25,10 +43,7 @@ def send_quote():
         # connection.close() Not needed if using with keyword
         print("Message Sent!!!!")
 
-now = dt.datetime.now()
-year = now.year
-if now.weekday() == 5:
-    send_quote()
-
-
-
+# now = dt.datetime.now()
+# year = now.year
+# if now.weekday() == 5:
+#     send_quote()  Email-Sender\Birthday-Wisher\birthdays.csv
